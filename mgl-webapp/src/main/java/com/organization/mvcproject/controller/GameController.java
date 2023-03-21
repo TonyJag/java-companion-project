@@ -20,7 +20,6 @@ import com.organization.mvcproject.service.GameService;
 @Controller
 public class GameController {
 
-	//TODO 1.0 variable naming convention, improve reference name
 	@Autowired
 	private GameService javaGameService;
 
