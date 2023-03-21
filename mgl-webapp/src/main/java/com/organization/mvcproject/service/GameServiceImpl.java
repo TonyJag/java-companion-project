@@ -1,65 +1,39 @@
 package com.organization.mvcproject.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.organization.mvcproject.model.Game;
+import com.organization.mvcproject.repository.GameDAO;
 
 @Service
 public class GameServiceImpl implements GameService {
 
-	/**
-	 * TODO 2.0 The class that interacts with persistent data is called a Data Access Object(DAO)
-	 *  or a Repository class. The private static list is mocking our persistance of games.
-	 *   
-	 *  Move this list, and methods operating on this list to an appropriately named package and class.
-	 */
-	
-	private static Long gameId = new Long(0);
-	private static Long companyId = new Long(0);
-	private static List<Game> games = new ArrayList<Game>();
-
-	static {
-		games = populateGames();
-	}
-
-	private static List<Game> populateGames() {
-
-		Game game1 = new Game();
-		game1.setGame_id(++gameId);
-		game1.setGame_genre("Sport");
-		game1.setGame_name("Rocket League");
-
-		Game game2 = new Game();
-		game2.setGame_id(++gameId);
-		game2.setGame_genre("Shooter");
-		game2.setGame_name("Halo 3");
-
-		Game game3 = new Game();
-		game3.setGame_id(++gameId);
-		game3.setGame_genre("MMORPG");
-		game3.setGame_name("Runescape");
-
-		games.add(game1);
-		games.add(game2);
-		games.add(game3);
-
-		return games;
-	}
+	@Autowired
+	private GameDAO gameDao;
 
 	@Override
 	public List<Game> retrieveAllGames() {
-		return games;
+		return gameDao.retrieveAllGames();
 	}
 
 	@Override
 	public Game saveGame(Game game) {
-		game.setGame_id(++gameId);
-		games.add(game);
-		return game;
+		return gameDao.saveGame(game);
 	}
-
+	
+	@Override
+	public Game updateGame(Game game) {
+		// any additional business logic here.
+		// then
+		return gameDao.updateGame(game);
+	}
+	
+	@Override
+	public boolean deleteGame(Long id) {
+		return gameDao.deleteGame(id);
+	}
 
 }
