@@ -74,8 +74,6 @@
 		    <version>1.2</version>
 		</dependency>
 
-
-		<!-- Logging TODO: upgrade logging to use log4j-slf4j-impl -->
 		<dependency>
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-simple</artifactId>
