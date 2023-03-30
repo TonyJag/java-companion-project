@@ -1,6 +1,8 @@
 package com.organization.mvcproject.model;
 
-public class Game {
+import com.organization.mvcproject.api.model.GameInterface;
+
+public class Game implements GameInterface {
 
 	private Long id;
 	private String name;
