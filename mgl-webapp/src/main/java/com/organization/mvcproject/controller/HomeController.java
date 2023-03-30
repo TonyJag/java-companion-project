@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.organization.mvcproject.api.model.ReviewInterface;
 import com.organization.mvcproject.model.Game;
 import com.organization.mvcproject.model.Review;
 
@@ -24,7 +23,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/addReview", method = RequestMethod.POST)
-	public ModelAndView addReview(ReviewInterface review, ModelMap model) {
+	public ModelAndView addReview(Review review, ModelMap model) {
 		if(review.getAuthor().equals("")) {
 			review.setAuthor("anonymous");
 		}
