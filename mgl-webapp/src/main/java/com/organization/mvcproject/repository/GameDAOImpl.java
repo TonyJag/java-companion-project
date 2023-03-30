@@ -7,16 +7,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.collect.ImmutableList;
+import com.organization.mvcproject.api.dao.GameDAO;
+import com.organization.mvcproject.api.model.GameInterface;
 import com.organization.mvcproject.model.Game;
 
-@Repository
+@Repository("gameDAO")
 public class GameDAOImpl implements GameDAO{
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(GameDAOImpl.class);
 		
 	private static Long gameId = new Long(0);
 	private static Long companyId = new Long(0);
-	private static List<Game> games = new ArrayList<Game>();
+	private static List<Game> games = new ArrayList<>();
 
 	static {
 		games = populateGames();
@@ -47,19 +50,19 @@ public class GameDAOImpl implements GameDAO{
 	}
 	
 	@Override
-	public List<Game> retrieveAllGames() {
-		return games;
+	public List<GameInterface> retrieveAllGames() {
+		return ImmutableList.copyOf(games);
 	}
 
 	@Override
-	public Game saveGame(Game game) {
+	public GameInterface saveGame(GameInterface game) {
 		game.setId(++gameId);
-		games.add(game);
+		games.add((Game) game);
 		return game;
 	}
 
 	@Override
-	public Game updateGame(Game updatedGame) {
+	public GameInterface updateGame(GameInterface updatedGame) {
 		if(updatedGame.getId() != null) {
 			//update game
 			Game foundGame = findGameById(updatedGame.getId());
@@ -67,7 +70,7 @@ public class GameDAOImpl implements GameDAO{
 				// update game in the list
 				for(int i = 0; i < games.size(); i++) {
 					if (updatedGame.getId().equals(games.get(i).getId())) {
-						games.set(i, updatedGame);
+						games.set(i, (Game) updatedGame);
 						return updatedGame;
 					}
 				}
