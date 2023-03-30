@@ -43,12 +43,6 @@ public class GameController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-//	@RequestMapping(value = "/game", method = RequestMethod.GET)
-//	public ModelAndView game() {
-//		return new ModelAndView("gamesPage", "command", new Game());
-//	}
-	
-	
 	// Server requests are GET, POST, PUT, DELETE, ..... OPTIONS.... not as recognizable.
 	
 	@PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
