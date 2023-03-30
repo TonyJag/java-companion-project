@@ -25,9 +25,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.organization.mvcproject.api.model.GameInterface;
+import com.organization.mvcproject.api.service.GameService;
 import com.organization.mvcproject.config.MvcConfiguration;
 import com.organization.mvcproject.model.Game;
-import com.organization.mvcproject.service.GameService;
 
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
@@ -40,7 +41,7 @@ class GameServiceImplTest {
 	@Autowired
 	private GameService gameServiceUnderTest;
 	
-	private static Game testGame = createGame(1);
+	private static GameInterface testGame = createGame(1);
 	
 	private  static final String TEST_GENRE = "Test Genre";
 	private static Game createGame(Integer number) {
@@ -56,16 +57,16 @@ class GameServiceImplTest {
 	@Test
 	void saveGameServiceSavesAndUpdatesGame() {
 		if(gamesToRemoveAfterTest.isEmpty()) {
-			Game game = gameServiceUnderTest.saveGame(testGame);
+			GameInterface game = gameServiceUnderTest.saveGame(testGame);
 			Assertions.assertNotNull(game.getId());
 			
 			//updates 
 			game.setName("Testing Game Name Updated" );
 			testGame = gameServiceUnderTest.saveGame(game);
 			assertEquals(game, testGame);	
-			gamesToRemoveAfterTest.add(testGame);
+			gamesToRemoveAfterTest.add((Game) testGame);
 			//the saveGame works, save another game to setup list operation tests
-			gamesToRemoveAfterTest.add(gameServiceUnderTest.saveGame(createGame(2)));
+			gamesToRemoveAfterTest.add((Game) gameServiceUnderTest.saveGame(createGame(2)));
 		}
 	}
 	
@@ -84,7 +85,7 @@ class GameServiceImplTest {
 	
 	@Test
   	void retrieveAllGamesServiceReturnsGames() {
-		List<Game> games = gameServiceUnderTest.retrieveAllGames(); 
+		List<GameInterface> games = gameServiceUnderTest.retrieveAllGames(); 
 		assertNotNull(games);
 		assertTrue(games.size() >= 2 );
 	}
